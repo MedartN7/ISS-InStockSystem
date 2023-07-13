@@ -1,23 +1,23 @@
 {
-    "version": 2,
-    "builds": [
+    "version":2,
+    "builds":[
       {
-        "src": "main.py",
-        "use": "@vercel/python"
+        "src":"main.py",
+        "use":"@vercel/python"
       },
       {
-        "src": "index.html",
-        "use": "@vercel/static"
+        "src":"index.html",
+        "use":"@vercel/static"
       }
     ],
-    "routes": [
-      { "src": "/get-all-items", "dest": "main.py" },
-      { "src": "/get-item/:item_id", "dest": "main.py" },
-      { "src": "/get-by-name", "dest": "main.py" },
-      { "src": "/create-item/:item_id", "dest": "main.py" },
-      { "src": "/update-item/:item_id", "dest": "main.py" },
-      { "src": "/delete-item", "dest": "main.py" },
-      { "src": "/(.*)", "dest": "index.html" }
+    "routes":[
+      { "src":"/get-all-items", "dest": "main.py" },
+      { "src":"/get-item/:item_id", "dest": "main.py" },
+      { "src":"/get-by-name", "dest": "main.py" },
+      { "src":"/create-item/:item_id", "dest": "main.py" },
+      { "src":"/update-item/:item_id", "dest": "main.py" },
+      { "src":"/delete-item", "dest": "main.py" },
+      { "src":"/(.*)", "dest": "index.html" }
     ]
   }
   
