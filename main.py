@@ -10,7 +10,7 @@ async def get_index():
     with open("index.html") as f:
         return f.read()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="./"), name="static")
 
 class Item(BaseModel):
     name: str
