@@ -1,11 +1,16 @@
 from fastapi import FastAPI, Path, Query, HTTPException, status
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 from typing import Optional, List
 from pydantic import BaseModel
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="./"), name="static")
+@app.get("/", response_class=HTMLResponse)
+async def get_index():
+    with open("index.html") as f:
+        return f.read()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 class Item(BaseModel):
     name: str
