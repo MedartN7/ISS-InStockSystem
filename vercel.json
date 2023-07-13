@@ -21,11 +21,6 @@
     ],
     "env": {
       "PORT": "$PORT"
-    },
-    "functions": {
-      "api/**/*.py": {
-        "runtime": "@vercel/python"
-      }
     }
   }
   
