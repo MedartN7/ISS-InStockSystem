@@ -4,6 +4,8 @@ from typing import Optional, List
 from pydantic import BaseModel
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="templates"), name="static")
+
 
 class Item(BaseModel):
     name: str
