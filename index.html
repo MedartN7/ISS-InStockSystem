@@ -177,7 +177,7 @@
     <script>
         $(document).ready(function() {
             $("#show-stock-btn").click(function() {
-                $.get("/get-all-items", function(data) {
+                $.get("./get-all-items", function(data) {
                     var items = "";
                     if (data.length > 0) {
                         for (var i = 0; i < data.length; i++) {
@@ -207,7 +207,7 @@
             const itemPrice = document.querySelector('.item-price').value;
             const itemBrand = document.querySelector('.item-brand').value;
 
-            fetch(`/create-item/${itemId}`, {
+            fetch(`./create-item/${itemId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -232,7 +232,7 @@
             event.preventDefault();
             const itemId = document.querySelector('.get-item-id').value;
 
-            fetch(`/get-item/${itemId}`)
+            fetch(`./get-item/${itemId}`)
             .then((response) => response.json())
             .then((data) => {
                 responseLogDiv.innerHTML = JSON.stringify(data);
@@ -247,7 +247,7 @@
             event.preventDefault();
             const itemName = document.querySelector('.get-item-name').value;
 
-            fetch(`/get-by-name?name=${encodeURIComponent(itemName)}`)
+            fetch(`./get-by-name?name=${encodeURIComponent(itemName)}`)
             .then((response) => response.json())
             .then((data) => {
                 responseLogDiv.innerHTML = JSON.stringify(data);
@@ -265,7 +265,7 @@
             const itemPrice = document.querySelector('.update-item-price').value;
             const itemBrand = document.querySelector('.update-item-brand').value;
 
-            fetch(`/update-item/${itemId}`, {
+            fetch(`./update-item/${itemId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -290,7 +290,7 @@
             event.preventDefault();
             const itemId = document.querySelector('.delete-item-id').value;
 
-            fetch(`/delete-item?item_id=${itemId}`, {
+            fetch(`./delete-item?item_id=${itemId}`, {
                 method: 'DELETE',
             })
             .then((response) => response.json())
