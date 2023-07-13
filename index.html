@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ISS-InStockSystem</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 300px;
+            padding: 5px;
+        }
+        .container {
+            text-align: center;
+        }
+        .operation-log {
+            position: fixed;
+            width: 175px;
+            top: 25px;
+            right: 20px;
+            border: 2px solid #ccc;
+            background-color: #f9f9f9;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .log-content {
+            position: fixed;
+            width: 175px;
+            top: 120px;
+            right: 20px;
+            border: 2px solid #ccc;
+            background-color: #f9f9f9;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .response-log {
+            text-align: center;
+            position: fixed;
+            width: 400px;
+            top: 25px;
+            right: 225px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            background-color: #f9f9f9;
+            overflow-y: auto;
+        }
+        .response {
+            position: fixed;
+            width: 400px;
+            top: 120px;
+            right: 225px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            background-color: #f9f9f9;
+            overflow-y: auto;
+        }
+        .inventory-container-wrapper {
+            text-align: center;
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            margin: 20px auto;
+            margin-top: 40px;
+            transform: translateX(-50%);
+            width: 400px;
+            border: 2px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center">InStockSystem</h1>
+    <h2 style="text-align:center">Inventory Management System</h2>
+    <div class="container">
+        <button id="show-stock-btn">Show Stock</button>
+    </div>
+
+    <div class="inventory-container-wrapper">
+        <div id="inventory-container"></div>
+    </div>
+
+    <div class="operation-log">
+        <h2>Working on:</h2>
+        <div id="log-content" class="log-content"></div>
+    </div>
+
+    <div class="response-log">
+        <h2>Operation Log:</h2>
+        <div id="response" class="response"></div>
+    </div>
+
+    <h2>Create Item</h2>
+    <form id="create-form">
+        <label for="item-id">Item ID:</label>
+        <input type="number" class="item-id" required>
+
+        <label for="item-name">Name:</label>
+        <input type="text" class="item-name" required>
+
+        <label for="item-price">Price:</label>
+        <input type="number" step="0.01" class="item-price" required>
+
+        <label for="item-brand">Brand:</label>
+        <input type="text" class="item-brand">
+        <br>
+        <input type="submit" value="Create Item">
+    </form>
+
+    <h2>Get Item by ID</h2>
+    <form id="get-by-id-form">
+        <label for="get-item-id">Item ID:</label>
+        <input type="number" class="get-item-id" required>
+
+        <input type="submit" value="Get Item">
+    </form>
+
+    <h2>Get Item by Name</h2>
+    <form id="get-by-name-form">
+        <label for="get-item-name">Name:</label>
+        <input type="text" class="get-item-name" required>
+
+        <input type="submit" value="Get Item">
+    </form>
+
+    <h2>Update Item</h2>
+    <form id="update-form">
+        <label for="update-item-id">Item ID:</label>
+        <input type="number" class="update-item-id" required>
+
+        <label for="update-item-name">Name:</label>
+        <input type="text" class="update-item-name">
+
+        <label for="update-item-price">Price:</label>
+        <input type="number" step="0.01" class="update-item-price">
+
+        <label for="update-item-brand">Brand:</label>
+        <input type="text" class="update-item-brand">
+        <br>
+        <input type="submit" value="Update Item">
+    </form>
+
+    <h2>Delete Item</h2>
+    <form id="delete-form">
+        <label for="delete-item-id">Item ID:</label>
+        <input type="number" class="delete-item-id" required>
+
+        <input type="submit" value="Delete Item">
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $("#show-stock-btn").click(function() {
+                $.get("/get-all-items", function(data) {
+                    var items = "";
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            items += "<p>Item ID: " + data[i].item_id + ", Name: " + data[i].name + "</p>";
+                        }
+                    } else {
+                        items = "<p>No items in inventory</p>";
+                    }
+                    $("#inventory-container").html(items);
+                });
+            });
+        });
+
+        const createForm = document.getElementById('create-form');
+        const getByIdForm = document.getElementById('get-by-id-form');
+        const getByNameForm = document.getElementById('get-by-name-form');
+        const updateForm = document.getElementById('update-form');
+        const deleteForm = document.getElementById('delete-form');
+        const responseDiv = document.getElementById('response');
+        const operationLogDiv = document.getElementById('log-content');
+        const responseLogDiv = document.getElementById('response');
+
+        createForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const itemId = document.querySelector('.item-id').value;
+            const itemName = document.querySelector('.item-name').value;
+            const itemPrice = document.querySelector('.item-price').value;
+            const itemBrand = document.querySelector('.item-brand').value;
+
+            fetch(`/create-item/${itemId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: itemName,
+                    price: parseFloat(itemPrice),
+                    brand: itemBrand,
+                }),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                responseLogDiv.innerHTML = JSON.stringify(data);
+                operationLogDiv.innerHTML += `<p>Creating item with ID: ${itemId}</p>`;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        getByIdForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const itemId = document.querySelector('.get-item-id').value;
+
+            fetch(`/get-item/${itemId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                responseLogDiv.innerHTML = JSON.stringify(data);
+                operationLogDiv.innerHTML += `<p>Retrieving item with ID: ${itemId}</p>`;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        getByNameForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const itemName = document.querySelector('.get-item-name').value;
+
+            fetch(`/get-by-name?name=${encodeURIComponent(itemName)}`)
+            .then((response) => response.json())
+            .then((data) => {
+                responseLogDiv.innerHTML = JSON.stringify(data);
+                operationLogDiv.innerHTML += `<p>Retrieving item with name: ${itemName}</p>`;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        updateForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const itemId = document.querySelector('.update-item-id').value;
+            const itemName = document.querySelector('.update-item-name').value;
+            const itemPrice = document.querySelector('.update-item-price').value;
+            const itemBrand = document.querySelector('.update-item-brand').value;
+
+            fetch(`/update-item/${itemId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: itemName,
+                    price: parseFloat(itemPrice),
+                    brand: itemBrand,
+                }),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                responseLogDiv.innerHTML = JSON.stringify(data);
+                operationLogDiv.innerHTML += `<p>Updating item with ID: ${itemId}</p>`;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        deleteForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const itemId = document.querySelector('.delete-item-id').value;
+
+            fetch(`/delete-item?item_id=${itemId}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                responseLogDiv.innerHTML = JSON.stringify(data);
+                operationLogDiv.innerHTML += `<p>Deleting item with ID: ${itemId}</p>`;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
