@@ -1,10 +1,10 @@
 {
     "routes": [
-            { "src": "/(.*)", "dest": "/main.py" },
+            { "src": "/api/(.*)", "dest": "/main.py" },
             { "src": "/(.*)", "dest": "/index.html" }  
     ],
     "rewrites": [
-      { "source": "/(.*)", "destination": "/(.*)", "has": [ { "type": "route", "value": "/(.*)" } ] },
+      { "source": "/api/(.*)", "destination": "/api/(.*)", "has": [ { "type": "route", "value": "/api/(.*)" } ] },
       { "source": "/(.*)", "destination": "/index.html" }
     ]
   }
