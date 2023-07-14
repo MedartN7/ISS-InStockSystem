@@ -1,0 +1,11 @@
+{
+    "routes": [
+      { "src": "/api/(.*)", "dest": "<ścieżka_do_main.py>" },
+      { "src": "/(.*)", "dest": "<ścieżka_do_index.html>" }
+    ],
+    "rewrites": [
+      { "source": "/api/(.*)", "destination": "/api/(.*)", "has": [ { "type": "route", "value": "/api/(.*)" } ] },
+      { "source": "/(.*)", "destination": "/index.html" }
+    ]
+  }
+  
