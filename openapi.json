@@ -1,0 +1,398 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Get Index",
+                "operationId": "get_index__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-all-items": {
+            "get": {
+                "summary": "Get All Items",
+                "operationId": "get_all_items_get_all_items_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/ItemSummary"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get All Items Get All Items Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-item/{item_id}": {
+            "get": {
+                "summary": "Get Item By Id",
+                "operationId": "get_item_by_id_get_item__item_id__get",
+                "parameters": [
+                    {
+                        "name": "item_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "description": "The ID of the item you want to view ",
+                            "title": "Item Id"
+                        },
+                        "description": "The ID of the item you want to view "
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-by-name": {
+            "get": {
+                "summary": "Get Item By Name",
+                "operationId": "get_item_by_name_get_by_name_get",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "title": "Name",
+                            "description": "Name of the item"
+                        },
+                        "description": "Name of the item"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/create-item/{item_id}": {
+            "post": {
+                "summary": "Create Item",
+                "operationId": "create_item_create_item__item_id__post",
+                "parameters": [
+                    {
+                        "name": "item_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Item Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Item"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/update-item/{item_id}": {
+            "put": {
+                "summary": "Update Item",
+                "operationId": "update_item_update_item__item_id__put",
+                "parameters": [
+                    {
+                        "name": "item_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Item Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateItem"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/delete-item": {
+            "delete": {
+                "summary": "Delete Item",
+                "operationId": "delete_item_delete_item_delete",
+                "parameters": [
+                    {
+                        "name": "item_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "exclusiveMinimum": 0,
+                            "description": "The ID of the item to delete",
+                            "title": "Item Id"
+                        },
+                        "description": "The ID of the item to delete"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "Item": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "price": {
+                        "type": "number",
+                        "title": "Price"
+                    },
+                    "brand": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Brand"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "price"
+                ],
+                "title": "Item"
+            },
+            "ItemSummary": {
+                "properties": {
+                    "item_id": {
+                        "type": "integer",
+                        "title": "Item Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "item_id",
+                    "name"
+                ],
+                "title": "ItemSummary"
+            },
+            "UpdateItem": {
+                "properties": {
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Name"
+                    },
+                    "price": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Price"
+                    },
+                    "brand": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Brand"
+                    }
+                },
+                "type": "object",
+                "title": "UpdateItem"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}
