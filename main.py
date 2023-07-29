@@ -78,3 +78,4 @@ def delete_item(item_id: int = Query(..., description="The ID of the item to del
 
     del inventory[item_id]
     return {"Success": "Item deleted successfully."}
+
