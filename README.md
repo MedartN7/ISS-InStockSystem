@@ -6,6 +6,8 @@ This is the documentation for the InStockSystem API, which is used for managing 
 ### API Deployment
 
 The API is currently deployed and accessible at [https://issinstocksyste-1-f1055394.deta.app](https://issinstocksyste-1-f1055394.deta.app).
+You can also build with Dockerfile and run it for testing if you like that way(Docker is awsome btw!)
+
 
 ### Requirements
 
