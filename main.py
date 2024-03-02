@@ -37,6 +37,7 @@ def get_all_items():
         item_summary = ItemSummary(item_id=item_id, name=item.name)
         items_summary.append(item_summary)
     return items_summary
+
 @app.get("/get-item/{item_id}")
 def get_item_by_id(item_id: int = Path(..., description="The ID of the item you want to view ", gt=0)):
     if item_id not in inventory:
