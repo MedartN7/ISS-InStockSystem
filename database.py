@@ -17,6 +17,5 @@ conn = psycopg2.connect(
     dbname=database,
     user=username,
     password=pwd,
-    port=port_id
-    )
-
+    port=port_id)
+conn.close()
