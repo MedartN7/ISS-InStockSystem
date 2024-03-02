@@ -12,7 +12,9 @@ database = database_config.get('database')
 username = database_config.get('username')
 pwd = database_config.get('password')
 port_id = database_config.get('port')
-conn = None
+conn = None #usunąć?Może powodowac problem
+
+#Utworzyć kopie tego pliku i zmodyfikowac nowy pod tą samą nazwą z funkcją łaczenia main.py
 try:
     with psycopg2.connect(
             host=hostname,

@@ -5,6 +5,7 @@ from typing import Optional, List
 from pydantic import BaseModel
 
 app = FastAPI()
+
 @app.get("/", response_class=HTMLResponse)
 async def get_index():
     with open("index.html") as f:
