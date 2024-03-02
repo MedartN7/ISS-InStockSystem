@@ -1,0 +1,9 @@
+{
+    "database_config": {
+      "hostname": "localhost",
+      "database": "database_name",
+      "username": "postgres_username",
+      "password": "your_password",
+      "port": "port_you_are_using"
+    }
+  }
