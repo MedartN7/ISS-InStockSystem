@@ -96,4 +96,3 @@ if cur is not None:
     cur.close()
 if conn is not None:
     conn.close()
-    
